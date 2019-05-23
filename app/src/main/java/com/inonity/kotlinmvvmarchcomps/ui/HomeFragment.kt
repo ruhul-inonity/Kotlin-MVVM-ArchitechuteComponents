@@ -31,7 +31,7 @@ class HomeFragment @Inject constructor() : BaseFragment() {
         homeViewModel = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
 
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
-            this.viewModel = homeViewModel
+            //this.viewModel = homeViewModel
             //this.adapter = newsAdapter
         }
         return binding.root

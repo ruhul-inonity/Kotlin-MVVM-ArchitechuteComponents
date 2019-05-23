@@ -1,9 +1,6 @@
 package com.inonity.kotlinmvvmarchcomps.data.repository
-
-import com.inonity.kotlinmvvmarchcomps.data.local.NewsLocalDataSource
 import com.inonity.kotlinmvvmarchcomps.data.local.room.CommentEntity
 import com.inonity.kotlinmvvmarchcomps.data.local.room.NewsEntity
-import com.inonity.kotlinmvvmarchcomps.data.remote.NewsRemoteDataSource
 import com.inonity.kotlinmvvmarchcomps.di.qualifier.LocalData
 import com.inonity.kotlinmvvmarchcomps.di.qualifier.RemoteData
 import io.reactivex.Flowable
@@ -13,12 +10,11 @@ import javax.inject.Singleton
 /**
  * Created by ruhul on 21,May,2019
  */
-
 @Singleton
 class NewsRepository @Inject constructor(
-    @LocalData private val localDataSource: NewsLocalDataSource,
-    @RemoteData private val remoteDataSource: NewsRemoteDataSource
-) : NewsDataSource {
+    @LocalData private val localDataSource: NewsDataSource,
+    @RemoteData private val remoteDataSource: NewsDataSource) : NewsDataSource {
+
     private var cachedNews = listOf<NewsEntity>()
 
     private var cacheNewsIsDirty = false
@@ -101,5 +97,4 @@ class NewsRepository @Inject constructor(
     private fun getAndCacheLocalComments(newsId: Int): Flowable<List<CommentEntity>> {
         return localDataSource.getAllComments(newsId).doOnNext { comments -> cachedComments[newsId] = comments }
     }
-
 }
